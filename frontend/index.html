@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BioHealth AI |Report analyser | Smart Health Calculator: BMI,Blood compatibility, Heart Rate & other</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Inline small reset for demo environment if CSS not loaded yet */
+    html, body { height: 100%; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <nav class="navbar" id="home">
+    <div class="logo">
+      <img src="assets/logo.svg" alt="BioHealth AI Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';" style="display:block;" />
+      <svg class="fallback-logo" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" style="display:none; fill:#22c55e;">
+        <circle cx="12" cy="12" r="9" fill="none" stroke="#2dd4bf" stroke-width="2" opacity="0.6"/>
+        <path d="M6 12l4 4 8-8" stroke="#22c55e" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>BioHealth AI</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#Report Analyzer">Report Anayzer</a></li>
+      <li><a href="#Health Calculator">Health Calculator</a></li>
+      
+    </ul>
+    <div class="theme-toggle">
+      <button id="themeSwitch" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+    </div>
+  </nav>
+
+  <header class="hero" id="home-hero">
+    <h1>Welcome to BioHealth AI</h1>
+    <p>Your health companion</p>
+  </header>
+
+  <section id="tools-grid" class="section">
+    <div class="dashboard">
+      <div class="cards-grid">
+        <div class="card square glass" data-tool="bmi">
+          <div class="card-top">
+            <div class="icon"><i class="fa-solid fa-scale-medical"></i></div>
+            <h3>BMI Calculator</h3>
+            <p class="card-desc">Enter your height and weight to compute BMI and get health guidance.</p>
+          </div>
+          <div class="card-bottom"><button class="open-tool" data-tool="bmi">Open Tool</button></div>
+        </div>
+
+        <div class="card square glass" data-tool="blood">
+          <div class="card-top">
+            <div class="icon"><i class="fa-solid fa-dna"></i></div>
+            <h3>Blood Compatibility</h3>
+            <p class="card-desc">Check donor-recipient blood compatibility.</p>
+          </div>
+          <div class="card-bottom"><button class="open-tool" data-tool="blood">Open Tool</button></div>
+        </div>
+
+        <div class="card square glass" data-tool="disease">
+          <div class="card-top">
+            <div class="icon"><i class="fa-solid fa-virus"></i></div>
+            <h3>Disease Predictor</h3>
+            <p class="card-desc">Predict possible disease from symptoms. Not a diagnosis.</p>
+          </div>
+          <div class="card-bottom"><button class="open-tool" data-tool="disease">Open Tool</button></div>
+        </div>
+      
+        <!-- Blood Group Predictor (Genetics) - Move next to Blood Compatibility -->
+        <!-- Reordered: placed after Blood Compatibility for row alignment; content kept intact -->
+        <div class="card square glass" data-tool="bloodgroup">
+          <div class="card-top">
+            <div class="icon"><i class="fa-solid fa-dna"></i></div>
+            <h3>Blood Group Predictor</h3>
+            <p class="card-desc">Predict a child’s blood groups from parents’ ABO types and Rh factors using Mendelian genetics.</p>
+          </div>
+          <div class="card-bottom" style="width:100%; display:flex; justify-content:center;"><button class="open-tool" data-tool="bloodgroup">Open Tool</button></div>
+        </div>
+
+        
+        <!-- Report Analyzer Card (new) -->
+        <div class="card square glass" data-tool="report">
+          <div class="card-top">
+            <div class="icon"><i class="fa-solid fa-chart-simple"></i></div>
+            <h3>Report Analyzer</h3>
+            <p class="card-desc">Analyze medical reports and extract key insights.</p>
+          </div>
+          <div class="card-bottom"><button class="open-tool" data-tool="report">Open Tool</button></div>
+        </div>
+
+        <!-- Health Calculator Card (new) -->
+        <div class="card square glass" data-tool="healthcalc">
+          <div class="card-top">
+            <div class="icon"><i class="fa-solid fa-calculator"></i></div>
+            <h3>Health Calculator</h3>
+            <p class="card-desc">Access multiple health-related calculations in one place.</p>
+          </div>
+          <div class="card-bottom"><button class="open-tool" data-tool="healthcalc">Open Tool</button></div>
+        </div>
+      </div>
+
+      <!-- Health Tips sidebar -->
+      <aside id="health-tips" class="health-tips section" aria-label="Health Tips">
+        <div class="card glass">
+          <div class="card-header">
+            <span class="icon"><i class="fa-solid fa-leaf"></i></span>
+            <h3>Health Tips</h3>
+            <div class="progress" aria-hidden="true"></div>
+          </div>
+          <p class="card-desc">Small, actionable tips to support a healthier lifestyle.</p>
+      <div class="tip-controls" style="display:flex; align-items:center; justify-content:space-between; margin:6px 0;">
+        <button id="shuffleTips" type="button" class="open-tool" style="padding:6px 10px;">Shuffle Tips</button>
+            <label style="display:flex; align-items:center; gap:6px;">
+              <input type="checkbox" id="tipsToggle" checked> Show Tips
+            </label>
+          </div>
+          <div id="tipsBody" class="tips-grid" aria-label="Health tips grid"></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <footer class="footer">BioHealth AI ©Eklavya Chaudhary 2026 <br> This application is for educational purposes only and should not be used for real medical diagnosis. Always consult a healthcare professional.</footer>
+
+  <!-- Modal -->
+  <div id="toolModal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+      <span class="close" aria-label="Close">&times;</span>
+      <div id="toolTitle" class="tool-title"></div>
+      <div id="toolBody" class="tool-body"></div>
+      <div id="toolFooter" class="tool-footer"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

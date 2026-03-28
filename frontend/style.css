@@ -1,0 +1,392 @@
+:root {
+  --bg: #f4f6fb;
+  --card: rgba(255,255,255,0.92);
+  --text: #0f1220;
+  --muted: #5b6470;
+  --accent: #4caf50;
+  --shadow: 0 10px 25px rgba(0,0,0,.08);
+  --radius: 18px;
+}
+:root[data-theme="dark"] {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --text: #e5e7eb;
+  --muted: #93a0b8;
+  --accent: #22c55e;
+  --shadow: 0 6px 20px rgba(0,0,0,.5);
+}
+
+/* Improve form controls visibility in dark mode */
+:root[data-theme="dark"] input,
+:root[data-theme="dark"] select,
+:root[data-theme="dark"] textarea {
+  background: #1e293b;
+  color: #e5e7eb;
+  border: 1px solid #334155;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100%; font-family: Inter, system-ui, -apple-system,  Arial; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.navbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 28px; position: sticky; top: 0; z-index: 50;
+  backdrop-filter: blur(6px);
+  background: rgba(255,255,255,0.6);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.logo { 
+  font-weight: 700; 
+  display: flex; 
+  align-items: center; 
+  gap: 8px; 
+}
+.logo img { 
+  height: 32px; 
+  width: 32px; 
+  object-fit: 
+  contain; 
+}
+.logo svg { 
+  height: 32px; 
+  width: 32px; 
+  display: none; 
+}
+body.dark-mode .logo img { 
+  filter: brightness(1.15) saturate(1.1); 
+}
+.nav-links { 
+  list-style: none; 
+  display: flex; 
+  gap: 16px; 
+  padding: 0; 
+  margin: 0; 
+}
+.nav-links a { 
+  color: var(--text); 
+  text-decoration: none; 
+  font-weight: 500; 
+}
+.theme-toggle button { 
+  border: none; 
+  background: none; 
+  color: var(--text); 
+  font-size: 1.1rem; 
+  cursor: pointer; 
+}
+
+.hero { 
+  padding: 40px 24px; 
+  text-align: center; 
+}
+.section { 
+  padding: 24px; 
+  display: flex; 
+  justify-content: center; 
+}
+.cards-grid { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
+  gap: 24px; 
+  width: 100%; 
+  max-width: 900px; 
+  margin: 0 auto; 
+  padding: 0 16px; 
+  align-items: stretch; 
+  justify-items: center; 
+}
+.card.square { 
+  width: 100%; 
+  height: auto; 
+  aspect-ratio: 1 / 1; 
+  display: flex; 
+  flex-direction: column; 
+  justify-content: space-between; 
+  padding: 20px; 
+  border-radius: 16px; 
+  background: var(--card); 
+  box-shadow: var(--shadow); 
+  transition: transform .25s ease, box-shadow .25s ease; 
+  overflow: hidden; 
+}
+.card.square:hover { 
+  transform: translateY(-6px); 
+  box-shadow: 0 14px 28px rgba(0,0,0,.12); 
+}
+.card-top { 
+  display:flex; 
+  flex-direction:column; 
+  align-items:center; 
+  text-align:center; 
+  gap: 6px; 
+  padding: 6px 0 0; 
+}
+.card-top .icon { 
+  font-size: 2rem; 
+  width: 48px; 
+  height: 48px; 
+  display:grid; 
+  place-items: center; 
+  border-radius: 10px; 
+  background: rgba(0,0,0,0.05); 
+}
+.card-top h3 { 
+  margin: 6px 0 0; 
+  font-size: 1.05rem; 
+}
+.card-desc { 
+  color: var(--muted); 
+  font-size: 0.92rem; 
+  padding: 2px 12px; 
+}
+.card-bottom { 
+  display:flex; 
+  justify-content:center; 
+  padding: 8px; 
+}
+.cards-grid .card {
+   /* ensure grid items align nicely on older browsers */ 
+  }
+.card { 
+  width: min(720px, 92%); 
+  padding: 20px; 
+  border-radius: var(--radius); 
+  background: var(--card); 
+  box-shadow: var(--shadow); 
+  position: relative; 
+  overflow: hidden; 
+  transition: transform .2s ease; 
+}
+.card:hover { 
+  transform: translateY(-3px); 
+}
+.glass { 
+  background: rgba(255,255,255,0.75); 
+  backdrop-filter: blur(6px); 
+}
+.card-header { 
+  display: flex; 
+  align-items: center; 
+  gap: 12px; 
+}
+.card-header .icon { 
+  font-size: 1.4rem; 
+  width: 34px; 
+  height: 34px; 
+  display: grid; 
+  place-items: center; 
+  border-radius: 8px; 
+  background: rgba(0,0,0,0.05); 
+}
+.card-header h3 { 
+  margin: 0; 
+  font-size: 1.1rem; 
+}
+.underline { 
+  height: 3px; 
+  width: 0; 
+  background: var(--accent); 
+  border-radius: 2px; 
+  margin-left: auto; 
+  margin-right: 10px; 
+  transition: width 0.6s ease; 
+}
+.progress { 
+  height: 4px; 
+  width: 0; 
+  background: var(--accent); 
+  border-radius: 2px; 
+  margin-top: 6px; 
+  transition: width 1s ease; 
+}
+.card-top { 
+  opacity: 0; 
+  transform: translateY(8px); 
+}
+.card-desc { 
+  color: var(--muted); 
+  font-size: 0.95rem; 
+  margin: 12px 0 8px; 
+}
+.open-tool { 
+  padding: 10px 14px; 
+  border: none; 
+  border-radius: 8px; 
+  background: var(--accent); 
+  color: #fff; font-weight: 600; 
+  cursor: pointer; 
+}
+.footer { 
+  text-align: center; 
+  padding: 20px; 
+  color: var(--muted); 
+}
+
+/* Modal */
+.modal { 
+  display: none; 
+  position: fixed; 
+  z-index: 100; 
+  left: 0; 
+  top: 0; 
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background: rgba(0,0,0,0.35); 
+}
+.modal-content { 
+  background: var(--card); 
+  margin: 8% auto; 
+  padding: 20px; 
+  border-radius: 16px; 
+  width: min(860px, 90%); 
+  box-shadow: var(--shadow); 
+  position: relative; 
+}
+.modal .close { 
+  position: absolute; 
+  top: 8px; 
+  right: 12px; 
+  font-size: 28px; 
+  cursor: pointer; 
+  color: var(--muted); 
+}
+.tool-title { 
+  font-size: 1.2rem; 
+  font-weight: 700; 
+  margin-bottom: 8px; 
+}
+.tool-body { 
+  margin-top: 6px; 
+}
+.tool-footer { 
+  margin-top: 14px; 
+  display: flex; 
+  justify-content: flex-end; 
+}
+.input, textarea, select { 
+  padding: 10px; 
+  border-radius: 6px; 
+  border: 1px solid #ccc; 
+  width: 100%; 
+  font-size: 1rem; 
+}
+.row { 
+  display: flex; 
+  gap: 12px; 
+  align-items: center; 
+}
+.label { 
+  font-weight: 500; 
+  display: block; 
+  margin-bottom: 6px; 
+}
+.spinner { 
+  border: 4px solid rgba(0,0,0,0.1); 
+  width: 36px; 
+  height: 36px; 
+  border-radius: 50%; 
+  border-left-color: var(--accent); 
+  animation: spin 1s linear infinite; 
+  margin: 6px auto; 
+}
+@keyframes spin { 
+  to { 
+    transform: rotate(360deg);
+  } 
+}
+.result { 
+  padding: 12px; 
+  border-radius: 6px; 
+  background: rgba(0,0,0,0.04); 
+  margin-top: 8px; 
+}
+.success { 
+  color: green; 
+  font-weight: 700; 
+}
+
+/* Dark mode support via body.dark-mode (explicit class) */
+body.dark-mode { 
+  background: #0b132b; 
+  color: #ffffff; 
+}
+body.dark-mode { /* override theme vars for dark mode */
+  --bg: #0f132b;
+  --card: #1c2541;
+  --text: #e0e0e0;
+  --muted: #a3afc3;
+  --accent: #22c55e;
+  --shadow: 0 6px 20px rgba(0,0,0,.6);
+}
+body.dark-mode .navbar {
+  background: #0f172a; 
+}
+body.dark-mode .card, body.dark-mode .box, body.dark-mode .tool-box { 
+  background: #1c2541; 
+  color: #ffffff; 
+}
+body.dark-mode .card p, body.dark-mode .card h2, body.dark-mode .card h3 { 
+  color: #e0e0e0; 
+}
+
+@media (max-width: 700px) {
+  .nav-links { 
+    display: none; 
+  }
+  .cards-grid { 
+    grid-template-columns: repeat(2, 1fr); 
+  }
+  .card.square { 
+    aspect-ratio: 1 / 1; 
+  }
+}
+
+@media (max-width: 500px) {
+  .cards-grid { 
+    grid-template-columns: 1fr; 
+  }
+}
+
+/* Health Tips grid inside a card */
+.tip-icon { 
+  font-size: 1rem; 
+}
+.tips-grid { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
+  gap: 10px; margin-top: 8px; 
+}
+
+.tip-item { 
+  display: flex; 
+  align-items: center; 
+  gap: 8px; 
+  padding: 8px 10px; 
+  border-radius: 8px; 
+  background: rgba(0,0,0,0.04); 
+}
+
+.tip-item .tip-icon {
+  width: 28px; 
+  height: 28px; 
+  display: grid; 
+  place-items: center; 
+  border-radius: 6px; 
+  background: rgba(0,0,0,0.08); 
+}
+
+.tip-item .tip-text { 
+  font-size: 0.92rem; 
+}
+
+.upload-area:hover {
+  background: rgba(0,0,0,0.04);
+}
+.upload-area .upload-icon { 
+  font-size: 48px; margin-bottom: 6px; 
+}

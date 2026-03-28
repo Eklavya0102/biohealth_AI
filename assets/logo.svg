@@ -1,0 +1,10 @@
+<svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-label="BioHealth Logo">
+  <defs>
+    <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#4CAF50" offset="0"/>
+      <stop stop-color="#22c55e" offset="1"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="40" fill="url(#grad)" opacity="0.9"/>
+  <path d="M40 45 C44 35, 60 35, 60 45 C60 55, 44 60, 40 65" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+</svg>
